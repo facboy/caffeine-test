@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.sameInstance;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -81,6 +82,8 @@ class CaffeineExpiryTest {
             final long end = System.currentTimeMillis() + Duration.ofSeconds(20).toMillis();
 
             while (System.currentTimeMillis() < end) {
+                reset(removalListener);
+
                 cache.put(10, "10");
                 Thread.sleep(500);
 
